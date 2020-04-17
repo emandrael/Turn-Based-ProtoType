@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cfdfe29024899644b25a826f8874a9c, type: 3}
+  m_Name: Mega Slash
+  m_EditorClassIdentifier: 
+  moveName: Mega Slash
+  moveAttackValue: 4
+  moveAPCost: 0
+  isPhysical: 1
+  isMagical: 0
+  moveEffect: {fileID: 2383988855110487911, guid: 90a247229a00faa44ae18d9b8837c1a0,
+    type: 3}
