@@ -18,6 +18,10 @@ public class Begin : State
 
         BattleSystem.currentPlayerMove = BattleSystem.playerUnit.UnitMoves;
 
+        Animator playerAnim = BattleSystem.playerGO.GetComponent<Animator>();
+        playerAnim.SetBool("IsWalkingLeft", true);
+
+
         for (int i = 0; i < BattleSystem.attackChoiceButtons.Length; i++)
         {
             if (BattleSystem.currentPlayerMove[i] != null)
@@ -36,9 +40,9 @@ public class Begin : State
         BattleSystem.playerHUD.SetHUD(BattleSystem.playerUnit);
         BattleSystem.enemyHUD.SetHUD(BattleSystem.enemyUnit);
 
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(2f);
 
-
+        playerAnim.SetBool("IsWalkingLeft", false);
         BattleSystem.SetState(new PlayerTurn(BattleSystem));
     }
 }

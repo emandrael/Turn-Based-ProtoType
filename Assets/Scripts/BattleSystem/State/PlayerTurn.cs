@@ -32,6 +32,7 @@ internal class PlayerTurn : State
     {
         // Stop all current text and refreshes it into a empty string.
         GameEvents.current.StopText();
+        Animator playerAnim = BattleSystem.playerGO.GetComponent<Animator>();
         
         // Removes panel from scene.
         BattleSystem.battlePanelAttackButton.interactable = false;
@@ -46,11 +47,20 @@ internal class PlayerTurn : State
         {
             // Player moves to enemy.
             LeanTween.move(BattleSystem.playerGO, new Vector2(BattleSystem.enemyBattleStation.transform.position.x + 1, BattleSystem.enemyBattleStation.transform.position.y), 1f).setEaseInBack();
+
+            playerAnim.SetBool("IsWalkingLeft", true);
             yield return new WaitForSeconds(1f);
+            playerAnim.SetBool("IsWalkingLeft", false);
+
 
             // Checks for the damage done to the enemy, returns a bool if the damage is sufficent for killing the enemy. 
+            playerAnim.SetBool("IsPhysicalAttacking", true);
             isDead = BattleSystem.enemyUnit.takeDamageFromMoveByUnit(BattleSystem.currentAttackMove, BattleSystem.playerUnit, BattleSystem.enemyUnit);
+            yield return new WaitForSeconds(BattleSystem.currentAttackMove.EffectLength());
             BattleSystem.enemyHUD.SetHP(BattleSystem.enemyUnit);
+            playerAnim.SetBool("IsPhysicalAttacking", false);
+           
+            
 
             if (!isDead)
             {
@@ -60,16 +70,20 @@ internal class PlayerTurn : State
             }
 
             // Player moves back to position.
+            playerAnim.SetBool("IsWalkingRight", true);
             LeanTween.move(BattleSystem.playerGO, BattleSystem.playerBattleStation.transform.position, 1f).setEaseInBack();
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(0.8f);
+            playerAnim.SetBool("IsWalkingRight", false);
         }
-        
         // This is for non physical attacks.
         else if (BattleSystem.currentAttackMove.isMagical == true && BattleSystem.currentAttackMove.isPhysical == false)
         {
+            playerAnim.SetBool("IsMagicalAttacking", true);
             isDead = BattleSystem.enemyUnit.takeDamageFromMoveByUnit(BattleSystem.currentAttackMove, BattleSystem.playerUnit, BattleSystem.enemyUnit);
-            BattleSystem.enemyHUD.SetHP(BattleSystem.enemyUnit);
             yield return new WaitForSeconds(BattleSystem.currentAttackMove.EffectLength());
+            BattleSystem.enemyHUD.SetHP(BattleSystem.enemyUnit);
+            
+            playerAnim.SetBool("IsMagicalAttacking", false);
             if (!isDead)
             {
                 BattleSystem.AddDialogue(
