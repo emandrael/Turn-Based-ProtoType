@@ -12,7 +12,7 @@ public abstract class Unit : MonoBehaviour
     [SerializeField] private int maxHealth;
 
     [SerializeField] private int currentActionPoints;
-    [SerializeField] protected int maxActionPoints;
+    [SerializeField] private int maxActionPoints;
 
     [SerializeField] private int strength;
     [SerializeField] private int dexterity;
@@ -23,6 +23,7 @@ public abstract class Unit : MonoBehaviour
     [SerializeField] private bool isEnemy;
 
     private int previousHealth;
+    private int previousActionPoints;
 
     public int PreviousHealth { get => level; set => level = value; }
     public int Level { get => level; set => level = value; }
@@ -33,7 +34,10 @@ public abstract class Unit : MonoBehaviour
     public int Dexterity { get => dexterity; set => dexterity = value; }
     public int Intelligence { get => intelligence; set => intelligence = value; }
     public Move[] UnitMoves { get => unitMoves; set => unitMoves = value; }
+    public int MaxActionPoints { get => maxActionPoints; set => maxActionPoints = value; }
+    public int PreviousActionPoints { get => previousActionPoints; set => previousActionPoints = value; }
 
+    // This allows the unit to take damage.
     public virtual bool takeDamage(int damageTaken)
     {
         PreviousHealth = CurrentHealth;
@@ -47,7 +51,8 @@ public abstract class Unit : MonoBehaviour
         else return false;
     }
 
-    public virtual bool takeDamageFromMoveByUnit(Move moveUsed, Unit attackingUnit, Unit defendingUnit)
+    // This allows the unit to take damage from a move by a specific unit.
+    public virtual bool takeDamageFromMoveByUnit(Move moveUsed, Unit attackingUnit)
     {
         int damageTaken;
         
@@ -56,9 +61,11 @@ public abstract class Unit : MonoBehaviour
         else damageTaken = moveUsed.moveAttackValue;
         
         if (moveUsed.moveEffect != null)
-            Instantiate(moveUsed.moveEffect, defendingUnit.transform);
+            Instantiate(moveUsed.moveEffect, this.transform);
         PreviousHealth = CurrentHealth;
         CurrentHealth -= damageTaken;
+        
+        attackingUnit.currentActionPoints -= moveUsed.moveAPCost;
         
         if (CurrentHealth <= 0)
         {
@@ -70,10 +77,14 @@ public abstract class Unit : MonoBehaviour
 
     }
 
-    public virtual void healHealth(int healthHealded)
+    // This healths the unit.
+    public virtual void healHealth(Move moveUsed)
     {
-        CurrentHealth += healthHealded;
+        CurrentHealth += moveUsed.healValue;
+        if (moveUsed.moveEffect != null)
+            Instantiate(moveUsed.moveEffect, this.transform);
         if (CurrentHealth > MaxHealth) CurrentHealth = MaxHealth;
+
     }
 
 

@@ -13,9 +13,12 @@ MonoBehaviour:
   m_Name: Phantom Slash
   m_EditorClassIdentifier: 
   moveName: Phantom Slash
-  moveAttackValue: 3
-  moveAPCost: 1
+  isSupportMove: 0
+  moveAttackValue: 4
+  healValue: 0
+  moveAPCost: 2
   isPhysical: 0
   isMagical: 1
   moveEffect: {fileID: 2383988855110487911, guid: cc12da2bc7c233045bc7f25bb3540af3,
     type: 3}
+  moveAccuracy: 0

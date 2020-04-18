@@ -98,19 +98,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   level: 0
-  currentHealth: 20
-  maxHealth: 20
-  currentActionPoints: 0
-  maxActionPoints: 0
-  strength: 4
-  dexterity: 0
-  intelligence: 0
+  currentHealth: 50
+  maxHealth: 50
+  currentActionPoints: 20
+  maxActionPoints: 20
+  strength: 5
+  dexterity: 5
+  intelligence: 5
   unitMoves:
   - {fileID: 11400000, guid: 306312613b5fa3045b61815b84f6a442, type: 2}
   - {fileID: 11400000, guid: 6fb35367ae8e70d448986463740544ed, type: 2}
   - {fileID: 11400000, guid: 2f6ba02ca6f25d34fb242a38ba812949, type: 2}
   - {fileID: 11400000, guid: 4fe07f15450b36049b0518ff52972cd3, type: 2}
   isEnemy: 0
+  healMove: {fileID: 11400000, guid: 95a9d54dcec5bf045bbdb6d229e9ad00, type: 2}
 --- !u!114 &6960408377723419560
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -126,7 +127,6 @@ MonoBehaviour:
   location: {x: 0, y: 0}
   location2: {x: 0, y: 0}
   isEnemy: 0
-  isPlayer: 1
 --- !u!95 &463288652964441990
 Animator:
   serializedVersion: 3

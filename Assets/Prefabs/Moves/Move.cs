@@ -5,8 +5,10 @@ using UnityEngine;
 public class Move : ScriptableObject
 {
     public string moveName;
+    public bool isSupportMove;
    
     public int moveAttackValue;
+    public int healValue;
     public int moveAPCost;
   
     public bool isPhysical;

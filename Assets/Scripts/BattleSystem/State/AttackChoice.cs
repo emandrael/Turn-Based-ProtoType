@@ -30,8 +30,14 @@ internal class AttackChoice : State
 
     public override IEnumerator UseMove1()
     {
+
         Debug.Log(BattleSystem.attackChoiceButtons[0].GetComponentInChildren<Text>().text);
         BattleSystem.currentAttackMove = BattleSystem.FindMove(BattleSystem.attackChoiceButtons[0].GetComponentInChildren<Text>().text);
+        if ((BattleSystem.playerUnit.CurrentActionPoints - BattleSystem.currentAttackMove.moveAPCost) < 0)
+        {
+            BattleSystem.AddDialogue("Not enough Ap! Wow you suck, how did you manage that haha!");
+            yield break;
+        }
         BattleSystem.SetAttackState(new PlayerTurn(BattleSystem));
         yield break;
     }
@@ -39,6 +45,11 @@ internal class AttackChoice : State
     public override IEnumerator UseMove2()
     {
         BattleSystem.currentAttackMove = BattleSystem.FindMove(BattleSystem.attackChoiceButtons[1].GetComponentInChildren<Text>().text);
+        if ((BattleSystem.playerUnit.CurrentActionPoints - BattleSystem.currentAttackMove.moveAPCost) < 0)
+        {
+            BattleSystem.AddDialogue("Not enough Ap! Wow you suck, how did you manage that haha!");
+            yield break;
+        }
         BattleSystem.SetAttackState(new PlayerTurn(BattleSystem));
         yield break;
 
@@ -48,6 +59,11 @@ internal class AttackChoice : State
     {
         BattleSystem.currentAttackMove = BattleSystem.FindMove(BattleSystem.attackChoiceButtons[2].GetComponentInChildren<Text>().text);
         BattleSystem.SetAttackState(new PlayerTurn(BattleSystem));
+        if ((BattleSystem.playerUnit.CurrentActionPoints - BattleSystem.currentAttackMove.moveAPCost) < 0)
+        {
+            BattleSystem.AddDialogue("Not enough Ap! Wow you suck, how did you manage that haha!");
+            yield break;
+        }
         yield break;
 
     }
@@ -55,6 +71,11 @@ internal class AttackChoice : State
     public override IEnumerator UseMove4()
     {
         BattleSystem.currentAttackMove = BattleSystem.FindMove(BattleSystem.attackChoiceButtons[3].GetComponentInChildren<Text>().text);
+        if ((BattleSystem.playerUnit.CurrentActionPoints - BattleSystem.currentAttackMove.moveAPCost) < 0)
+        {
+            BattleSystem.AddDialogue("Not enough Ap! Wow you suck, how did you manage that haha!");
+            yield break;
+        }
         BattleSystem.SetAttackState(new PlayerTurn(BattleSystem));
         yield break;
 

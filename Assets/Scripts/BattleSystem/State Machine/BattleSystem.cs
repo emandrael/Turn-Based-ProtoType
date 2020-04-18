@@ -19,7 +19,7 @@ public class BattleSystem : StateMachine
 
     [SerializeField] public Text dialogue;
 
-    public Unit playerUnit;
+    public PlayerCharacterUnit playerUnit;
     public Unit enemyUnit;
 
     [SerializeField] public BattleHUD playerHUD;
@@ -78,6 +78,11 @@ public class BattleSystem : StateMachine
     {
         //StartCoroutine(State.Attack());
         SetState(new AttackChoice(this));
+    }
+
+    public void OnHealButton()
+    {
+        StartCoroutine(State.Heal());
     }
 
     public void OnAttackChoiceBackButton()

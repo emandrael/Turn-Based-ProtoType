@@ -13,7 +13,7 @@ public class Begin : State
         // Instantiates the two characters in the scene, and sets up the components for both of them.
         BattleSystem.playerGO = BattleSystem.Instantiate(BattleSystem.playerCharacters, BattleSystem.playerBattleStation);
         BattleSystem.enemyGO = BattleSystem.Instantiate(BattleSystem.enemyCharacters, BattleSystem.enemyBattleStation);
-        BattleSystem.playerUnit = BattleSystem.playerGO.GetComponent<Unit>();
+        BattleSystem.playerUnit = BattleSystem.playerGO.GetComponent<PlayerCharacterUnit>();
         BattleSystem.enemyUnit = BattleSystem.enemyGO.GetComponent<Unit>();
 
         BattleSystem.currentPlayerMove = BattleSystem.playerUnit.UnitMoves;
@@ -34,7 +34,10 @@ public class Begin : State
             }  
         }
 
-        BattleSystem.AddDialogue("Welcome to the battle, Puppet.", "That's a wild one, if you're not careful. Well, I think you know what can happen~", "Have fun! <3");
+        BattleSystem.AddDialogue(
+            "Welcome to the battle, Puppet. You can continue the text by clicking on the text box~", 
+            "That's a wild one, if you're not careful. Well, I think you know what can happen~", 
+            "Have fun! <3");
 
         //Hooks up the units to their respective HUDs.
         BattleSystem.playerHUD.SetHUD(BattleSystem.playerUnit);

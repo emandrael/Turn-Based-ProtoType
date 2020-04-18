@@ -96,19 +96,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   level: 0
-  currentHealth: 10
-  maxHealth: 10
-  currentActionPoints: 0
-  maxActionPoints: 0
+  currentHealth: 50
+  maxHealth: 50
+  currentActionPoints: 20
+  maxActionPoints: 20
   strength: 4
-  dexterity: 0
+  dexterity: 4
   intelligence: 4
   unitMoves:
   - {fileID: 11400000, guid: 87c0ec3a81ac030429077fd493930b5b, type: 2}
   - {fileID: 11400000, guid: 306312613b5fa3045b61815b84f6a442, type: 2}
   - {fileID: 11400000, guid: 6fb35367ae8e70d448986463740544ed, type: 2}
-  - {fileID: 11400000, guid: 4fe07f15450b36049b0518ff52972cd3, type: 2}
   isEnemy: 0
+  supportMoves: []
 --- !u!114 &-44885308488253249
 MonoBehaviour:
   m_ObjectHideFlags: 0

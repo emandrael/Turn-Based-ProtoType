@@ -13,9 +13,12 @@ MonoBehaviour:
   m_Name: Mega Slash
   m_EditorClassIdentifier: 
   moveName: Mega Slash
-  moveAttackValue: 4
-  moveAPCost: 0
+  isSupportMove: 0
+  moveAttackValue: 20
+  healValue: 0
+  moveAPCost: 12
   isPhysical: 1
   isMagical: 0
   moveEffect: {fileID: 2383988855110487911, guid: 90a247229a00faa44ae18d9b8837c1a0,
     type: 3}
+  moveAccuracy: 0

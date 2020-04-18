@@ -12,26 +12,65 @@ public class BattleHUD : MonoBehaviour
 
     public void SetHUD(Unit unit)
     {
+        // Sets the initial health for the unit.
         healthPointSlider.maxValue = unit.MaxHealth;
         healthPointSlider.value = unit.CurrentHealth;
+        actionPointSlider.maxValue = unit.MaxActionPoints;
+        actionPointSlider.value = unit.CurrentActionPoints;
     }
 
     public void SetHP(Unit unit)
     {
-        StartCoroutine(SliderWithTime(unit));
+        // This is a coroutine that changes the health for the unit.
+        StartCoroutine(SliderWithTimeHP(unit,healthPointSlider, true));
         healthPointSlider.value = unit.CurrentHealth;
     }
 
-    IEnumerator SliderWithTime(Unit unit)
+    public void SetAP(Unit unit)
     {
+        StartCoroutine(SliderWithTimeAP(unit, actionPointSlider));
+        actionPointSlider.value = unit.CurrentActionPoints;
+    }
+
+    public void SetHealedHP(Unit unit)
+    {
+        // This is a coroutine that changes the health for the unit.
+        StartCoroutine(SliderWithTimeHP(unit, healthPointSlider, true));
+        healthPointSlider.value = unit.CurrentHealth;
+    }
+
+
+    IEnumerator SliderWithTimeHP(Unit unit, Slider slider, bool isHealing)
+    {
+        // This is the enumerator that allows the animation of the hud.
         float timer = 0f;
         float duration = 1f;
-        while(timer < duration)
+        if (isHealing)
+        {
+            Debug.Log(unit.PreviousHealth + " " + unit.CurrentHealth);
+            while (timer < duration)
+            {
+                timer += Time.deltaTime;
+                slider.value = Mathf.Lerp(unit.PreviousHealth, unit.CurrentHealth, timer / duration);
+                yield return null;
+            }
+        }
+        yield return null;
+    }
+
+    IEnumerator SliderWithTimeAP(Unit unit, Slider slider)
+    {
+        // This is the enumerator that allows the animation of the hud.
+        float timer = 0f;
+        float duration = 1f;
+        Debug.Log(unit.PreviousActionPoints + " " + unit.CurrentActionPoints);
+        while (timer < duration)
         {
             timer += Time.deltaTime;
-            healthPointSlider.value = Mathf.Lerp(unit.PreviousHealth, unit.CurrentHealth, timer / duration);
+            slider.value = Mathf.Lerp(unit.PreviousActionPoints, unit.CurrentActionPoints, timer / duration);
             yield return null;
         }
+        
         yield return null;
     }
 

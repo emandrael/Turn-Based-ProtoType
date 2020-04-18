@@ -47,21 +47,21 @@ internal class PlayerTurn : State
         {
             // Player moves to enemy.
             LeanTween.move(BattleSystem.playerGO, new Vector2(BattleSystem.enemyBattleStation.transform.position.x + 1, BattleSystem.enemyBattleStation.transform.position.y), 1f).setEaseInBack();
-
+            // IsWalkingLeft starts the animation for walking left
             playerAnim.SetBool("IsWalkingLeft", true);
             yield return new WaitForSeconds(1f);
             playerAnim.SetBool("IsWalkingLeft", false);
-
-
-            // Checks for the damage done to the enemy, returns a bool if the damage is sufficent for killing the enemy. 
+            // IsPhysicalAttacking starts the animation for physical attacks. 
             playerAnim.SetBool("IsPhysicalAttacking", true);
-            isDead = BattleSystem.enemyUnit.takeDamageFromMoveByUnit(BattleSystem.currentAttackMove, BattleSystem.playerUnit, BattleSystem.enemyUnit);
+            // This initializes the previous health.
+            BattleSystem.enemyUnit.PreviousHealth = BattleSystem.enemyUnit.CurrentHealth;
+            BattleSystem.playerUnit.PreviousActionPoints = BattleSystem.playerUnit.CurrentActionPoints;
+            // Checks for the damage done to the enemy, returns a bool if the damage is sufficent for killing the enemy. 
+            isDead = BattleSystem.enemyUnit.takeDamageFromMoveByUnit(BattleSystem.currentAttackMove, BattleSystem.playerUnit);
             yield return new WaitForSeconds(BattleSystem.currentAttackMove.EffectLength());
             BattleSystem.enemyHUD.SetHP(BattleSystem.enemyUnit);
+            BattleSystem.playerHUD.SetAP(BattleSystem.playerUnit);
             playerAnim.SetBool("IsPhysicalAttacking", false);
-           
-            
-
             if (!isDead)
             {
                 BattleSystem.AddDialogue(
@@ -70,6 +70,7 @@ internal class PlayerTurn : State
             }
 
             // Player moves back to position.
+            // IsWalkingLeft starts the animation for walking right.
             playerAnim.SetBool("IsWalkingRight", true);
             LeanTween.move(BattleSystem.playerGO, BattleSystem.playerBattleStation.transform.position, 1f).setEaseInBack();
             yield return new WaitForSeconds(0.8f);
@@ -79,9 +80,12 @@ internal class PlayerTurn : State
         else if (BattleSystem.currentAttackMove.isMagical == true && BattleSystem.currentAttackMove.isPhysical == false)
         {
             playerAnim.SetBool("IsMagicalAttacking", true);
-            isDead = BattleSystem.enemyUnit.takeDamageFromMoveByUnit(BattleSystem.currentAttackMove, BattleSystem.playerUnit, BattleSystem.enemyUnit);
+            BattleSystem.enemyUnit.PreviousHealth = BattleSystem.enemyUnit.CurrentHealth;
+            BattleSystem.playerUnit.PreviousActionPoints = BattleSystem.playerUnit.CurrentActionPoints;
+            isDead = BattleSystem.enemyUnit.takeDamageFromMoveByUnit(BattleSystem.currentAttackMove, BattleSystem.playerUnit);
             yield return new WaitForSeconds(BattleSystem.currentAttackMove.EffectLength());
             BattleSystem.enemyHUD.SetHP(BattleSystem.enemyUnit);
+            BattleSystem.playerHUD.SetAP(BattleSystem.playerUnit);
             
             playerAnim.SetBool("IsMagicalAttacking", false);
             if (!isDead)
@@ -93,7 +97,8 @@ internal class PlayerTurn : State
 
         else
         {
-            isDead = BattleSystem.enemyUnit.takeDamageFromMoveByUnit(BattleSystem.currentAttackMove, BattleSystem.playerUnit, BattleSystem.enemyUnit);
+            BattleSystem.playerUnit.PreviousHealth = BattleSystem.playerUnit.CurrentHealth;
+            isDead = BattleSystem.enemyUnit.takeDamageFromMoveByUnit(BattleSystem.currentAttackMove, BattleSystem.playerUnit);
             BattleSystem.enemyHUD.SetHP(BattleSystem.enemyUnit);
             yield return new WaitForSeconds(BattleSystem.currentAttackMove.EffectLength());
             if (!isDead)
@@ -110,7 +115,42 @@ internal class PlayerTurn : State
         }
         else
         {
+            //Goes to enemy turn. 
             BattleSystem.SetState(new EnemyTurn(BattleSystem));
         }
+    }
+
+    public override IEnumerator Heal()
+    {
+        Animator playerAnim = BattleSystem.playerGO.GetComponent<Animator>();
+        playerAnim.SetBool("IsMagicalAttacking", true);
+
+        if(BattleSystem.playerUnit.CurrentHealth == BattleSystem.playerUnit.MaxHealth)
+        {
+            BattleSystem.playerUnit.healHealth(BattleSystem.playerUnit.HealMove);
+            yield return new WaitForSeconds(BattleSystem.playerUnit.HealMove.EffectLength());
+            BattleSystem.AddDialogue("You've got full health already dummy!");
+        }
+
+        else
+        {
+            BattleSystem.playerUnit.PreviousHealth = BattleSystem.playerUnit.CurrentHealth;
+            BattleSystem.playerUnit.healHealth(BattleSystem.playerUnit.HealMove);
+            yield return new WaitForSeconds(BattleSystem.playerUnit.HealMove.EffectLength());
+            BattleSystem.playerHUD.SetHealedHP(BattleSystem.playerUnit);
+
+
+            BattleSystem.AddDialogue("Looking out for yourself is very manly~");
+
+        }
+
+        
+
+        playerAnim.SetBool("IsMagicalAttacking", false);
+        
+
+        BattleSystem.SetState(new EnemyTurn(BattleSystem));
+
+
     }
 }

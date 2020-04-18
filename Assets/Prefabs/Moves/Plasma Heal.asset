@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4cfdfe29024899644b25a826f8874a9c, type: 3}
-  m_Name: Tunda
+  m_Name: Plasma Heal
   m_EditorClassIdentifier: 
-  moveName: Tunda
-  isSupportMove: 0
-  moveAttackValue: 20
-  healValue: 0
+  moveName: 
+  isSupportMove: 1
+  moveAttackValue: 0
+  healValue: 15
   moveAPCost: 0
   isPhysical: 0
-  isMagical: 1
-  moveEffect: {fileID: 4105517198854503884, guid: 095a5982aa781bc4c947c79ee8578eca,
+  isMagical: 0
+  moveEffect: {fileID: 1208165692135975121, guid: 6b793fd04f2f70244bb0da0018e3b0ff,
     type: 3}
   moveAccuracy: 0

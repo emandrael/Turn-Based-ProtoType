@@ -4,15 +4,7 @@ using UnityEngine;
 
 public class PlayerCharacterUnit : Unit
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] private Move healMove;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public Move HealMove { get => healMove; set => healMove = value; }
 }

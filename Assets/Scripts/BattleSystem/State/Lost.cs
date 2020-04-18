@@ -10,12 +10,14 @@ internal class Lost : State
    
     public override IEnumerator Start()
     {
-
+        GameEvents.current.StopText();
         LeanTween.scale(BattleSystem.playerGO, new Vector2(0, 0), 0.5f);
         yield return new WaitForSeconds(0.5f);
         GameEvents.current.FinishingUp();
         BattleSystem.Destroy(BattleSystem.playerGO);
         BattleSystem.AddDialogue("Ugh, looks like you weren't enough.");
+        yield return new WaitForSeconds(3f);
+        Application.Quit();
     }
 
 }

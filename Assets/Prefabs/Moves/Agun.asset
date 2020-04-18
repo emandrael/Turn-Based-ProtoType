@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: Agun
   m_EditorClassIdentifier: 
   moveName: Agune
-  moveAttackValue: 5
-  moveAPCost: 0
+  isSupportMove: 0
+  moveAttackValue: 12
+  healValue: 0
+  moveAPCost: 5
   isPhysical: 0
   isMagical: 1
   moveEffect: {fileID: 5868559587343158629, guid: 39b76e86c10f2d246a32bb33d22aa78c,
