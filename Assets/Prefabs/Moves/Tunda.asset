@@ -10,12 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4cfdfe29024899644b25a826f8874a9c, type: 3}
-  m_Name: Aginath
+  m_Name: Tunda
   m_EditorClassIdentifier: 
-  moveName: Aginath
+  moveName: Tunda
   moveAttackValue: 5
   moveAPCost: 0
   isPhysical: 0
   isMagical: 1
-  moveEffect: {fileID: 5868559587343158629, guid: 39b76e86c10f2d246a32bb33d22aa78c,
+  moveEffect: {fileID: 4105517198854503884, guid: 095a5982aa781bc4c947c79ee8578eca,
     type: 3}
+  moveAccuracy: 0

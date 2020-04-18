@@ -40,11 +40,14 @@ public class BattleSystem : StateMachine
     public GameObject playerGO;
     public GameObject enemyGO;
 
+    public Animator playerAnimator;
+
     public Move[] allMoves; 
 
     public Move[] currentPlayerMove;
 
     public Move currentAttackMove;
+
 
     #endregion
 

@@ -20,6 +20,8 @@ public abstract class Unit : MonoBehaviour
 
     [SerializeField] private Move[] unitMoves;
 
+    [SerializeField] private bool isEnemy;
+
     private int previousHealth;
 
     public int PreviousHealth { get => level; set => level = value; }
